@@ -1,11 +1,10 @@
-require('../styles/cookbook.scss');
+require('../styles/commons.scss');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
-
+import promise from 'redux-promise';
 import App from './components/app';
-import reducers from './reducers';
 
 import ApolloClient, { createNetworkInterface, ApolloProvider } from 'react-apollo'
 
@@ -22,11 +21,12 @@ const store = createStore(
         applyMiddleware(client.middleware()),
         // If you are using the devToolsExtension, you can add it here also
         (typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined') ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
-    )
+    ),
+    applyMiddleware(promise)
 );
 
 ReactDOM.render(
     <ApolloProvider client={client} store={store}>
         <App />
     </ApolloProvider>
-    , document.querySelector('.container'));
+    , document.querySelector('#app'));

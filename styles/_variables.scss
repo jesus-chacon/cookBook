@@ -1,0 +1,18 @@
+
+$gray-base: #000 !default;
+$gray-darker: lighten($gray-base, 13.5%) !default; // #222
+$gray-dark: lighten($gray-base, 20%) !default;   // #333
+$gray: lighten($gray-base, 33.5%) !default; // #555
+$gray-light: lighten($gray-base, 46.7%) !default; // #777
+$gray-lighter: lighten($gray-base, 93.5%) !default; // #eee
+
+
+$brand-primary: #2196f3 default;
+$brand-primary-light: #6ec6ff default;
+$brand-primary-dark: #0069c0 default;
+
+$brand-secondary: #e91e63 default;
+$brand-secondary-light: #ff6090 default;
+$brand-secondary-dark: #b0003a default;
+
+$margin-default: 15px default;
