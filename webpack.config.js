@@ -1,5 +1,9 @@
+const webpack = require('webpack');
+
 module.exports = {
     entry: [
+        'react-hot-loader/patch',
+
         './src/index.js'
     ],
     output: {
@@ -8,26 +12,29 @@ module.exports = {
         filename: 'bundle.js'
     },
     module: {
-        loaders: [
+        rules: [
             {
+                test: /\.js?$/,
                 exclude: /node_modules/,
-                loader: 'babel',
-                query: {
-                    presets: ['react', 'es2015', 'stage-1']
-                }
+                loader: 'babel-loader',
             },
             {
                 test: /\.scss$/,
-                loaders: ["style", "css", "sass"],
+                loaders: ["style-loader", "css-loader", "sass-loader"],
                 exclude: /node_modules/
             }
         ]
     },
     resolve: {
-        extensions: ['', '.js', '.jsx']
+        extensions: ['.js', '.jsx']
     },
     devServer: {
+        host: 'localhost',
+        port: 8000,
+
         historyApiFallback: true,
-        contentBase: './'
+        contentBase: './',
+
+        hot:true
     }
 };
