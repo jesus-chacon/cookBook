@@ -1,0 +1,41 @@
+@import "../variables";
+@import "mixins/input";
+@import "mixins/transition";
+
+.navbar {
+    border: none;
+    border-radius: 0;
+
+    background-color: $brand-primary-dark;
+
+    .navbar-brand{
+        color: white
+    }
+
+    .navbar-nav > li > a{
+        color: white;
+
+        &:hover {
+            color: $gray-dark;
+            background-color: white;
+        }
+    }
+
+    .navbar-form input.search-input {
+        border: none;
+        border-bottom: 1px solid $brand-secondary;
+        border-radius: 0;
+
+        color: white;
+        background-color: transparent;
+        box-shadow: none;
+
+        @include input-placeholder(white);
+        @include transition(border, 500ms, ease-out);
+
+        &:focus {
+            border-bottom: 1px solid white;
+            @include input-placeholder(transparent);
+        }
+    }
+}

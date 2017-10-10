@@ -1,0 +1,27 @@
+@import "../variables";
+@import "mixins/transition";
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i');
+
+h1, h2, h3, h4, h5, h6, span, p, strong {
+    font-weight: 400;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+.btn {
+    border: none;
+    border-radius: 0;
+
+    background-color: transparent;
+    color: $brand-primary-dark;
+    font-weight: 500;
+    text-transform: uppercase;
+
+    @include transition(background-color, 500ms, ease-out);
+
+    &:hover, &:focus {
+        background-color: lighten($brand-primary-light, 20%);
+        outline: none;
+        color: $brand-primary-dark;
+    }
+}

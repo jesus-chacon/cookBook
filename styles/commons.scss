@@ -1,5 +1,14 @@
 @import "variables";
 
+/* Components */
+@import "components/card";
+@import "components/navbar";
+/* Components */
+
+/* Theme */
+@import "components/material-theme";
+/* Theme */
+
 body, html {
-  background-color: $gray-lighter;
+    background-color: $gray-lighter;
 }

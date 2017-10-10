@@ -1,18 +1,22 @@
 
-$gray-base: #000 !default;
-$gray-darker: lighten($gray-base, 13.5%) !default; // #222
-$gray-dark: lighten($gray-base, 20%) !default;   // #333
-$gray: lighten($gray-base, 33.5%) !default; // #555
-$gray-light: lighten($gray-base, 46.7%) !default; // #777
-$gray-lighter: lighten($gray-base, 93.5%) !default; // #eee
+$gray-base: #000;
+$gray-darker: lighten($gray-base, 13.5%); // #222
+$gray-dark: lighten($gray-base, 20%);   // #333
+$gray: lighten($gray-base, 33.5%); // #555
+$gray-light: lighten($gray-base, 46.7%); // #777
+$gray-lighter: lighten($gray-base, 93.5%); // #eee
 
 
-$brand-primary: #2196f3 default;
-$brand-primary-light: #6ec6ff default;
-$brand-primary-dark: #0069c0 default;
+$brand-primary: #2196f3;
+$brand-primary-light: #6ec6ff;
+$brand-primary-dark: #0069c0;
 
-$brand-secondary: #e91e63 default;
-$brand-secondary-light: #ff6090 default;
-$brand-secondary-dark: #b0003a default;
+$brand-secondary: #e91e63;
+$brand-secondary-light: #ff6090;
+$brand-secondary-dark: #b0003a;
 
-$margin-default: 15px default;
+$margin-default: 15px;
+
+$font-size-base:          14px;
+$line-height-base:        1.428571429; // 20/14
+$line-height-computed:    floor(($font-size-base * $line-height-base)); // ~20px

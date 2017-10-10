@@ -1,10 +1,17 @@
 @import "../../../styles/variables";
 
 .recipe-card {
-    background-color: white;
-    border: 1px solid $gray-base;
-    border-bottom: 2px solid $brand-primary;
-    border-left: 2px solid $brand-primary;
-    padding: 5px 2px;
-    margin-bottom: $margin-default;
+    .heading {
+        img {
+            width: 100%;
+        }
+    }
+
+    .body {
+        .title {
+            font-size: 150%;
+        }
+    }
+
+    .footer { }
 }

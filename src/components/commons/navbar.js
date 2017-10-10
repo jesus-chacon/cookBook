@@ -21,7 +21,7 @@ class Navbar extends Component {
                         </ul>
                         <form className="navbar-form navbar-right">
                             <div className="form-group">
-                                <input type="text" className="form-control" placeholder="Search" />
+                                <input type="text" className="form-control search-input" placeholder="Search" />
                             </div>
                         </form>
                     </div>
