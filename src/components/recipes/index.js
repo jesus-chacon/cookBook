@@ -41,9 +41,6 @@ const getAllRecipesQuery = gql`
             title,
             imageUrl,
             summary
-            steps {
-                description
-            }
         }
     }
 `;
