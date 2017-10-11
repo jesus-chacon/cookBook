@@ -20,7 +20,7 @@ class Navbar extends Component {
                     <div className="collapse navbar-collapse" id="navbar">
                         <ul className="nav navbar-nav">
                             <li>
-                                <Link to="/create-recipe">Create</Link>
+                                <Link to="/recipes/create">Create</Link>
                             </li>
                         </ul>
                         <form className="navbar-form navbar-right">

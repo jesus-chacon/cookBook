@@ -1,8 +1,9 @@
 require('./recipes.scss');
 
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
-class RecipeCard extends  Component {
+class RecipeCard extends Component {
     render (){
         return (
             <div className="recipe-card card equalHeight">
@@ -16,7 +17,7 @@ class RecipeCard extends  Component {
                 </div>
 
                 <div className="footer">
-                    <button className="btn">See recipe</button>
+                    <Link to={`/recipes/${this.props.recipe.id}`} className="btn">See recipe</Link>
                 </div>
             </div>
         );
