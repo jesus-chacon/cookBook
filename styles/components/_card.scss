@@ -15,12 +15,14 @@
             margin-right: 0;
 
             height: 200px;
+            max-height: 200px;
             overflow: hidden;
         }
 
         &.footer {
             margin-bottom: 0;
             height: $line-height-computed*2;
+            max-height: $line-height-computed*2;
             display: flex;
             align-items: center;
         }
@@ -28,5 +30,25 @@
 
     &:hover {
         box-shadow: 10px 10px 20px -7px black;
+    }
+
+    &.equalHeight {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+        .heading, .body, .footer {
+            display: flex;
+            flex-direction: column;
+            align-self: baseline;
+        }
+
+        .heading, .footer {
+            flex-grow: 1;
+        }
+
+        .body {
+            flex-grow: 2;
+        }
     }
 }

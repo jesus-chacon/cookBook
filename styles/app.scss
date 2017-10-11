@@ -3,7 +3,12 @@
 /* Components */
 @import "components/card";
 @import "components/navbar";
+@import "components/grid";
 /* Components */
+
+/* Icons */
+@import "font-awensome/font-awesome";
+/* Icons */
 
 /* Theme */
 @import "components/material-theme";
@@ -11,4 +16,13 @@
 
 body, html {
     background-color: $gray-lighter;
+}
+
+label {
+    text-transform: none;
+    font-size: $font-size-base;
+}
+
+.ladda-button {
+    font-size: 14px;
 }

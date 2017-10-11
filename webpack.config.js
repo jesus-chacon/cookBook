@@ -1,9 +1,9 @@
-const webpack = require('webpack');
+require('babel-polyfill');
 
 module.exports = {
     entry: [
         'react-hot-loader/patch',
-
+        'babel-polyfill',
         './src/index.js'
     ],
     output: {

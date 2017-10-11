@@ -1,9 +1,11 @@
-require('../styles/commons.scss');
+require('../styles/app.scss');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import promise from 'redux-promise';
+import { BrowserRouter } from 'react-router-dom';
+
 import App from './components/app';
 
 import ApolloClient, { createNetworkInterface, ApolloProvider } from 'react-apollo'
@@ -26,7 +28,9 @@ const store = createStore(
 );
 
 ReactDOM.render(
-    <ApolloProvider client={client} store={store}>
-        <App />
-    </ApolloProvider>
+    <BrowserRouter>
+        <ApolloProvider client={client} store={store}>
+            <App />
+        </ApolloProvider>
+    </BrowserRouter>
     , document.querySelector('#app'));

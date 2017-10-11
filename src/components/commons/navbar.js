@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 class Navbar extends Component {
     render() {
@@ -12,12 +14,14 @@ class Navbar extends Component {
                             <span className="icon-bar"></span>
                             <span className="icon-bar"></span>
                         </button>
-                        <a className="navbar-brand" href="#">CookBook</a>
+                        <Link to="/" className="navbar-brand">CookBook</Link>
                     </div>
 
                     <div className="collapse navbar-collapse" id="navbar">
                         <ul className="nav navbar-nav">
-                            <li><a href="">Create</a></li>
+                            <li>
+                                <Link to="/create-recipe">Create</Link>
+                            </li>
                         </ul>
                         <form className="navbar-form navbar-right">
                             <div className="form-group">
@@ -31,4 +35,4 @@ class Navbar extends Component {
     }
 }
 
-export default Navbar;
+export default withRouter(Navbar);

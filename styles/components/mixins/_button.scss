@@ -1,0 +1,9 @@
+@mixin button-style($backgroundColor, $color, $hoverBackgroundColor, $hoverColor){
+    background-color: $backgroundColor;
+    color: $color;
+
+    &:hover, &:focus {
+        background-color: $hoverBackgroundColor;
+        color: $hoverColor;
+    }
+}

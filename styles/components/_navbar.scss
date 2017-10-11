@@ -8,16 +8,22 @@
 
     background-color: $brand-primary-dark;
 
-    .navbar-brand{
+    .navbar-brand, .navbar-brand:focus, .navbar-brand:hover, .navbar-brand:active {
+        cursor: pointer;
         color: white
     }
 
     .navbar-nav > li > a{
         color: white;
 
-        &:hover {
+        &:hover, &:focus {
             color: $gray-dark;
             background-color: white;
+        }
+
+        &.active {
+            background-color: $brand-primary;
+            color: white;
         }
     }
 

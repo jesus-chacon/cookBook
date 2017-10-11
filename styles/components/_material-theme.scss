@@ -1,5 +1,6 @@
 @import "../variables";
 @import "mixins/transition";
+@import "mixins/button";
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i');
 
@@ -12,16 +13,17 @@ h1, h2, h3, h4, h5, h6, span, p, strong {
     border: none;
     border-radius: 0;
 
-    background-color: transparent;
-    color: $brand-primary-dark;
     font-weight: 500;
     text-transform: uppercase;
 
     @include transition(background-color, 500ms, ease-out);
+    @include button-style(transparent, $brand-primary-dark, lighten($brand-primary-light, 20%), $brand-primary-dark);
 
     &:hover, &:focus {
-        background-color: lighten($brand-primary-light, 20%);
         outline: none;
-        color: $brand-primary-dark;
     }
+}
+
+.btn.btn-success {
+    @include button-style($brand-success, white, $brand-success-dark, white);
 }

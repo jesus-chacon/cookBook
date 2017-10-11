@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import RecipesIndex from './recipes/recipes-index';
+import { Switch, Route } from 'react-router-dom';
+
+import RecipesIndex from './recipes/index';
+import RecipesCreate from './recipes/create';
+
 import Navbar from './commons/navbar';
 
 export default class App extends Component {
@@ -9,7 +13,10 @@ export default class App extends Component {
                 <Navbar/>
 
                 <div className="container">
-                    <RecipesIndex/>
+                    <Switch>
+                        <Route exact path="/" component={RecipesIndex}/>
+                        <Route exact path="/create-recipe" component={RecipesCreate}/>
+                    </Switch>
                 </div>
             </div>
         );
