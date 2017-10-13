@@ -10,6 +10,8 @@ import App from './components/app';
 
 import ApolloClient, { createNetworkInterface, ApolloProvider } from 'react-apollo'
 
+import backgroundReducer from './reducers/background';
+
 const client = new ApolloClient({
     networkInterface: createNetworkInterface({ uri: 'https://api.graph.cool/simple/v1/cj7hw17os0ulx0108whavfg1r' }),
 });
@@ -17,6 +19,7 @@ const client = new ApolloClient({
 const store = createStore(
     combineReducers({
         apollo: client.reducer(),
+        backgroundReducer
     }),
     {}, // initial state
     compose(

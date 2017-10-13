@@ -4,6 +4,9 @@
 @import "components/card";
 @import "components/navbar";
 @import "components/grid";
+@import "components/loader";
+@import "components/typo";
+@import "components/recipes";
 /* Components */
 
 /* Icons */
@@ -14,10 +17,6 @@
 @import "components/material-theme";
 /* Theme */
 
-body, html {
-    background-color: $gray-lighter;
-}
-
 label {
     text-transform: none;
     font-size: $font-size-base;
@@ -25,4 +24,20 @@ label {
 
 .ladda-button {
     font-size: 14px;
+}
+
+.back-link {
+    color: black;
+}
+
+#bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    /* Preserve aspet ratio */
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+    background-color: $gray-lighter;
 }

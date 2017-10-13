@@ -1,8 +1,11 @@
-require('./recipes.scss');
+require('../../../styles/components/_recipes.scss');
 
 import React, { Component } from 'react';
 import {graphql, gql} from 'react-apollo';
 import LaddaButton, { EXPAND_LEFT} from 'react-ladda';
+import { connect } from 'react-redux';
+
+import { ChangeBackground } from '../../actions/background';
 
 class RecipeCreate extends Component {
     state = {
@@ -12,6 +15,10 @@ class RecipeCreate extends Component {
         imageUrl: "",
         isSaving: false
     };
+
+    componentDidMount(){
+        this.props.changeBackground('');
+    }
 
     render (){
         return (
@@ -69,6 +76,10 @@ class RecipeCreate extends Component {
     }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+    changeBackground: (background) => { dispatch(ChangeBackground(background)) }
+});
+
 const CREATE_RECIPE = gql`
     mutation CreateRecipeMutation($title: String!, $description: String!, $summary: String!, $imageUrl: String!){
         createRecipe(title: $title, description: $description, summary: $summary, imageUrl: $imageUrl){
@@ -79,4 +90,6 @@ const CREATE_RECIPE = gql`
     }
 `;
 
-export default graphql(CREATE_RECIPE, {name: 'createRecipeMutation'})(RecipeCreate);
+const component = graphql(CREATE_RECIPE, {name: 'createRecipeMutation'})(RecipeCreate);
+
+export default connect((state)=>({state}), mapDispatchToProps)(component);

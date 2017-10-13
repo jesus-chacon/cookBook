@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import {graphql, gql} from 'react-apollo';
 import RecipeCard from './card';
 
+import {connect} from 'react-redux';
+
+import {ChangeBackground} from "../../actions/background";
+
 class RecipesIndex extends Component {
     renderRecipes(){
         return (
@@ -13,28 +17,34 @@ class RecipesIndex extends Component {
         );
     }
 
+    componentDidMount(){
+        this.props.changeBackground("");
+    }
+
     render(){
         if (this.props.data.loading){
             return (<h1 className="text-info">Loading...</h1>);
-        }
+        } else if (this.props.data.error){
+            return (<h1 className="text-danger">Error</h1>);
+        } else {
+            return (
+                <div>
+                    <h1>Recipes</h1>
 
-        if (this.props.data.error){
-            return (<h1 className="text-danger">Error</h1>)
-        }
-
-        return (
-            <div>
-                <h1>Recipes</h1>
-
-                <div className="row equalHeightColsRow">
-                    {this.renderRecipes()}
+                    <div className="row equalHeightColsRow">
+                        {this.renderRecipes()}
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
     }
 }
 
-const getAllRecipesQuery = gql`
+const mapDispatchToProps = (dispatch) => ({
+    changeBackground: (background) => { dispatch(ChangeBackground(background)) }
+});
+
+const ALL_RECIPES = gql`
     query {
         allRecipes{
             id,
@@ -45,4 +55,6 @@ const getAllRecipesQuery = gql`
     }
 `;
 
-export default graphql(getAllRecipesQuery)(RecipesIndex);
+const component = graphql(ALL_RECIPES)(RecipesIndex);
+
+export default connect((state) => ({state}), mapDispatchToProps)(component);
