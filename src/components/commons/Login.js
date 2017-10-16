@@ -4,10 +4,11 @@ import {graphql, gql, compose} from 'react-apollo';
 
 import { GC_USER_ID, GC_AUTH_TOKEN } from '../constants';
 import { ChangeBackground } from "../../actions/background";
+import { FullLogin } from '../../actions/session';
 
 class Login extends Component {
     state = {
-        login: false, // switch between Login and SignUp
+        login: true, // switch between Login and SignUp
         email: '',
         password: '',
         name: ''
@@ -89,7 +90,7 @@ class Login extends Component {
             });
             const id = result.data.signinUser.user.id;
             const token = result.data.signinUser.token;
-            this._saveUserData(id, token)
+            this.props.setAuthInfo(id, token);
         } else {
             const result = await this.props.createUserMutation({
                 variables: {
@@ -100,19 +101,15 @@ class Login extends Component {
             });
             const id = result.data.signinUser.user.id;
             const token = result.data.signinUser.token;
-            this._saveUserData(id, token);
+            this.props.setAuthInfo(id, token);
         }
         this.props.history.push(`/`)
-    };
-
-    _saveUserData = (id, token) => {
-        localStorage.setItem(GC_USER_ID, id);
-        localStorage.setItem(GC_AUTH_TOKEN, token);
     };
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    changeBackground: (background) => { dispatch(ChangeBackground(background))}
+    changeBackground: (background) => { dispatch(ChangeBackground(background))},
+    setAuthInfo: (userId, authToken) => { dispatch(FullLogin(userId, authToken)) }
 });
 
 const CREATE_USER = gql`
@@ -152,4 +149,4 @@ const component = compose(
     graphql(SIGNIN_USER, {name: 'signinUserMutation'})
 )(Login);
 
-export default connect((state)=>({state}),mapDispatchToProps)(component);
+export default connect((state)=>({state}), mapDispatchToProps)(component);

@@ -10,7 +10,7 @@ class RecipesIndex extends Component {
     renderRecipes(){
         return (
             this.props.data.allRecipes.map(recipe => (
-                <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 equalHeightCol" style={{paddingTop: '5px', paddingBottom: '5px'}} key={recipe.id}>
+                <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 equalHeightCol" style={{paddingTop: '5px', paddingBottom: '15px'}} key={recipe.id}>
                     <RecipeCard recipe={recipe}/>
                 </div>
             ))

@@ -1,7 +1,7 @@
 require('../../../styles/components/_recipes.scss');
 
 import React, { Component } from 'react';
-import {graphql, gql} from 'react-apollo';
+import { graphql, gql } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 

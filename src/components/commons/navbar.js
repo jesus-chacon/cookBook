@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
 import { GC_USER_ID, GC_AUTH_TOKEN } from '../constants';
+import { Logout } from '../../actions/session';
 
 class Navbar extends Component {
-    state = {
-        userId: localStorage.getItem(GC_USER_ID)
-    };
-
     renderCreateRecipeLink (){
-        if (this.state.userId){
+        if (this.props.auth.isLogged){
             return (
                 <li>
                     <Link to="/recipes/create">Create</Link>
@@ -22,15 +20,10 @@ class Navbar extends Component {
     };
 
     renderSessionBlock (){
-        if (this.state.userId){
+        if (this.props.auth.isLogged){
             return (
                 <li>
-                    <a href="/" onClick={(event) => {
-                        event.preventDefault();
-                        localStorage.removeItem(GC_USER_ID);
-                        localStorage.removeItem(GC_AUTH_TOKEN);
-                        this.props.history.push('/');
-                    }}>
+                    <a href="/" onClick={(event) => { event.preventDefault(); this._logout()}}>
                         Logout
                     </a>
                 </li>
@@ -46,14 +39,14 @@ class Navbar extends Component {
 
     render() {
         return (
-            <nav className="navbar navbar-default">
+            <nav className="navbar navbar-default navbar-fixed-top">
                 <div className="container-fluid">
                     <div className="navbar-header">
                         <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
                             <span className="sr-only">Toggle navigation</span>
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
+                            <span className="icon-bar"/>
+                            <span className="icon-bar"/>
+                            <span className="icon-bar"/>
                         </button>
                         <Link to="/" className="navbar-brand">CookBook</Link>
                     </div>
@@ -78,6 +71,21 @@ class Navbar extends Component {
             </nav>
         );
     }
+
+    _logout() {
+        this.props.logout();
+        this.props.history.push('/');
+    }
 }
 
-export default withRouter(Navbar);
+const mapStateToProps = ({sessionReducer}) => ({
+    auth: sessionReducer.auth
+});
+
+const mapDispatchToProps = (dispatch) => ({
+      logout: () => { dispatch(Logout()) }
+});
+
+const component = connect(mapStateToProps, mapDispatchToProps)(Navbar);
+
+export default withRouter(component);

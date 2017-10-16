@@ -10,6 +10,7 @@ import ApolloClient, { createNetworkInterface, ApolloProvider } from 'react-apol
 import App from './components/app';
 
 import backgroundReducer from './reducers/background';
+import sessionReducer from './reducers/session';
 
 import { GC_AUTH_TOKEN } from "./components/constants";
 
@@ -33,7 +34,8 @@ const client = new ApolloClient({
 const store = createStore(
     combineReducers({
         apollo: client.reducer(),
-        backgroundReducer
+        backgroundReducer,
+        sessionReducer
     }),
     {}, // initial state
     compose(
