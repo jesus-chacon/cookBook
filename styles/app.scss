@@ -41,3 +41,12 @@ label {
     z-index: -1;
     background-color: $gray-lighter;
 }
+
+.login-block {
+    background-color: white;
+    box-shadow: 10px 10px 20px -10px black;
+
+    .fa {
+        margin:$margin-default 0;
+    }
+}

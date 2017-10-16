@@ -1,11 +1,12 @@
 require('../../../styles/components/_recipes.scss');
 
 import React, { Component } from 'react';
-import {graphql, gql} from 'react-apollo';
+import { graphql, gql } from 'react-apollo';
 import LaddaButton, { EXPAND_LEFT} from 'react-ladda';
 import { connect } from 'react-redux';
 
 import { ChangeBackground } from '../../actions/background';
+import { GC_USER_ID } from "../constants";
 
 class RecipeCreate extends Component {
     state = {
@@ -13,6 +14,7 @@ class RecipeCreate extends Component {
         description: "",
         summary: "",
         imageUrl: "",
+        owner: localStorage.getItem(GC_USER_ID),
         isSaving: false
     };
 
@@ -61,16 +63,17 @@ class RecipeCreate extends Component {
 
     _createRecipe = async () => {
         this.state.isSaving = true;
-        const { title, description, summary, imageUrl } = this.state;
+        const { title, description, summary, imageUrl, owner } = this.state;
         let newRecipe = await this.props.createRecipeMutation({
             variables: {
                 title,
                 description,
                 summary,
-                imageUrl
+                imageUrl,
+                owner
             }
         });
-        console.log('Created', newRecipe);
+
         this.state.isSaving = false;
         this.props.history.push('/');
     }
@@ -81,11 +84,15 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const CREATE_RECIPE = gql`
-    mutation CreateRecipeMutation($title: String!, $description: String!, $summary: String!, $imageUrl: String!){
-        createRecipe(title: $title, description: $description, summary: $summary, imageUrl: $imageUrl){
+    mutation CreateRecipeMutation($title: String!, $description: String!, $summary: String!, $imageUrl: String!, $owner: ID!){
+        createRecipe(title: $title, description: $description, summary: $summary, imageUrl: $imageUrl, ownerId: $owner){
             id,
             title,
-            description
+            description,
+            owner {
+                id,
+                name
+            }
         }
     }
 `;
