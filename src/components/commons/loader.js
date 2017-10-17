@@ -6,7 +6,7 @@ class loader extends Component {
 
     render() {
         return (
-            <div className="loader-component text-center">
+            <div className="loader-component text-center" style={this.props.style}>
                 <RotateLoader color={this.color}/>
             </div>
         );
