@@ -1,4 +1,5 @@
 @import "../variables";
+@import "../font-awensome/variables";
 
 .recipe-card {
     .heading {
@@ -13,7 +14,35 @@
         }
     }
 
-    .footer { }
+    .footer {
+        div {
+            display: flex;
+            align-items: center;
+            i {
+                margin-right: $margin-default;
+                color: $brand-secondary;
+
+                &.hover {
+                    cursor: pointer;
+                }
+
+                &:hover:before {
+                    content: $fa-var-heart;
+                }
+
+                &.liked{
+                    cursor: pointer;
+
+                    &:hover:before {
+                        content: $fa-var-heart-o;
+                    }
+                    &:before {
+                        content: $fa-var-heart;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .recipe-full {

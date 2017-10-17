@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 
 import { ChangeBackground } from '../../actions/background';
 import { GC_USER_ID } from "../constants";
+import { ALL_RECIPES } from "./index";
 
 class RecipeCreate extends Component {
     state = {
@@ -71,6 +72,11 @@ class RecipeCreate extends Component {
                 summary,
                 imageUrl,
                 owner
+            },
+            update: (store, { data: { createRecipe } }) => {
+                const data = store.readQuery({ query: ALL_RECIPES });
+                data.allRecipes.splice(0,0,createRecipe);
+                store.writeQuery({ query: ALL_RECIPES, data});
             }
         });
 
