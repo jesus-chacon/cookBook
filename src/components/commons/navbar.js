@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
-import { GC_USER_ID, GC_AUTH_TOKEN } from '../constants';
 import { Logout } from '../../actions/session';
 
 class Navbar extends Component {
@@ -54,16 +53,12 @@ class Navbar extends Component {
                     <div className="collapse navbar-collapse" id="navbar">
                         <ul className="nav navbar-nav">
                             {this.renderCreateRecipeLink()}
-                        </ul>
-                        <ul className="nav navbar-nav navbar-right">
                             <li>
-                                <form className="navbar-form">
-                                    <div className="form-group">
-                                        <input type="text" className="form-control search-input" placeholder="Search" />
-                                    </div>
-                                </form>
+                                <Link to="/search">Search</Link>
                             </li>
+                        </ul>
 
+                        <ul className="nav navbar-nav navbar-right">
                             {this.renderSessionBlock()}
                         </ul>
                     </div>
@@ -83,7 +78,7 @@ const mapStateToProps = ({sessionReducer}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-      logout: () => { dispatch(Logout()) }
+    logout: () => { dispatch(Logout()) }
 });
 
 const component = connect(mapStateToProps, mapDispatchToProps)(Navbar);

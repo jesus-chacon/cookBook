@@ -10,6 +10,7 @@ import LoginComponent from './commons/login';
 import Loader from './commons/loader';
 import Navbar from './commons/navbar';
 import AutoLogin from './commons/auto_login';
+import RecipeSearch from './recipes/search';
 
 class App extends Component {
     state = {
@@ -29,6 +30,7 @@ class App extends Component {
                     <div className="container" style={{paddingTop: '70px'}}>
                         <Switch>
                             <Route exact path="/" component={RecipeIndex}/>
+                            <Route exact path="/search" component={RecipeSearch}/>
                             <Route exact path="/login" component={LoginComponent}/>
                             <Route path="/recipes" component={RecipeRouter}/>
                         </Switch>

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import {graphql, gql} from 'react-apollo';
+import { graphql, gql, compose } from 'react-apollo';
+import { connect } from 'react-redux';
+
+import { ChangeBackground } from "../../actions/background";
 import RecipeCard from './card';
-
-import {connect} from 'react-redux';
-
-import {ChangeBackground} from "../../actions/background";
 
 class RecipesIndex extends Component {
     renderRecipes(){
@@ -15,10 +14,6 @@ class RecipesIndex extends Component {
                 </div>
             ))
         );
-    }
-
-    componentDidMount(){
-        this.props.changeBackground("");
     }
 
     render(){
@@ -37,6 +32,10 @@ class RecipesIndex extends Component {
                 </div>
             );
         }
+    }
+
+    componentDidMount(){
+        this.props.changeBackground("");
     }
 
     _updateCacheAfterLike = (store, createLike, recipeId) => {
@@ -78,7 +77,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export const ALL_RECIPES = gql`
     query {
-        allRecipes{
+        allRecipes {
             id,
             title,
             imageUrl,
@@ -93,6 +92,8 @@ export const ALL_RECIPES = gql`
     }
 `;
 
-const component = graphql(ALL_RECIPES)(RecipesIndex);
+const component = compose(
+    graphql(ALL_RECIPES)
+)(RecipesIndex);
 
 export default connect((state) => ({state}), mapDispatchToProps)(component);
