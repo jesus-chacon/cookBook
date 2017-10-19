@@ -5,10 +5,15 @@ import { connect } from 'react-redux';
 import { ChangeBackground } from "../../actions/background";
 import RecipeCard from './card';
 
+import { LINKS_PER_PAGE } from "../constants";
+
 class RecipesIndex extends Component {
     renderRecipes(){
+        const isNewPage = this.props.location.pathname.includes('new');
+        const recipesToRender = this._getRecipesToRender(isNewPage);
+
         return (
-            this.props.allRecipes.allRecipes.map(recipe => (
+            recipesToRender.map(recipe => (
                 <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 equalHeightCol" style={{paddingTop: '5px', paddingBottom: '15px'}} key={recipe.id}>
                     <RecipeCard recipe={recipe} updateCacheAfterLike={this._updateCacheAfterLike} updateCacheAfterRemoveLike={this._updateCacheAfterRemoveLike}/>
                 </div>
@@ -22,6 +27,8 @@ class RecipesIndex extends Component {
         } else if (this.props.allRecipes.error){
             return (<h1 className="text-danger">Error</h1>);
         } else {
+            const isNewPage = this.props.location.pathname.includes('new');
+
             return (
                 <div>
                     <h1>Recipes</h1>
@@ -29,13 +36,29 @@ class RecipesIndex extends Component {
                     <div className="row equalHeightColsRow">
                         {this.renderRecipes()}
                     </div>
+
+                    { isNewPage &&
+                        <div className="row center-xs around-sm">
+                            { parseInt(this.props.match.params.page, 10) > 1 &&
+                                <div className="col-xs-6 col-sm-4 col-md-2">
+                                    <button className='btn btn-success' onClick={() => this._previousPage()}>Previous page</button>
+                                </div>
+                            }
+
+                            { this.props.allRecipes._allRecipesMeta.count > (LINKS_PER_PAGE * parseInt(this.props.match.params.page, 10)) &&
+                                <div className="col-xs-6 col-sm-4 col-md-2">
+                                    <button className='btn btn-success' onClick={() => this._nextPage()}>Next page</button>
+                                </div>
+                            }
+                        </div>
+                    }
                 </div>
             );
         }
     }
 
     componentDidMount(){
-        //this.props.changeBackground("");
+        this.props.changeBackground("");
         this._subscribeToNewRecipes();
         this._subscribeToNewLikes();
     }
@@ -136,6 +159,32 @@ class RecipesIndex extends Component {
             }
         });
     };
+
+    _getRecipesToRender = (isNewPage) => {
+        console.log(this.props.allRecipes);
+        if (isNewPage) {
+            return this.props.allRecipes.allRecipes;
+        }
+        const recipeLike = this.props.allRecipes.allRecipes.slice();
+        recipeLike.sort((l1, l2) => l2.likes.length - l1.likes.length);
+        return recipeLike;
+    };
+
+    _nextPage = () => {
+        const page = parseInt(this.props.match.params.page, 10);
+        if (page <= this.props.allRecipes._allRecipesMeta.count / LINKS_PER_PAGE) {
+            const nextPage = page + 1;
+            this.props.history.push(`/recipes/new/${nextPage}`);
+        }
+    };
+
+    _previousPage = () => {
+        const page = parseInt(this.props.match.params.page, 10);
+        if (page > 1) {
+            const previousPage = page - 1;
+            this.props.history.push(`/recipes/new/${previousPage}`);
+        }
+    };
 }
 
 const mapDispatchToProps = (dispatch) => ({
@@ -143,8 +192,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export const ALL_RECIPES = gql`
-    query {
-        allRecipes {
+    query AllRecipes ($first: Int, $skip: Int, $orderBy: RecipeOrderBy){
+        allRecipes (first: $first, skip: $skip, orderBy: $orderBy){
             id,
             title,
             imageUrl,
@@ -156,9 +205,24 @@ export const ALL_RECIPES = gql`
                 }
             }
         }
+        _allRecipesMeta {
+            count
+        }
     }
 `;
 
-const component = graphql(ALL_RECIPES, {name: 'allRecipes'})(RecipesIndex);
-export default component;
-//export default connect((state) => ({state}), mapDispatchToProps)(component);
+const component = graphql(ALL_RECIPES, {
+    name: 'allRecipes',
+    options: (ownProps) => {
+        const page = parseInt(ownProps.match.params.page, 10);
+        const isNewPage = ownProps.location.pathname.includes('new');
+        const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0;
+        const first = isNewPage ? LINKS_PER_PAGE : 100;
+        const orderBy = isNewPage ? 'createdAt_DESC' : null;
+        return {
+            variables: { first, skip, orderBy }
+        }
+    }
+})(RecipesIndex);
+
+export default connect((state) => ({state}), mapDispatchToProps)(component);

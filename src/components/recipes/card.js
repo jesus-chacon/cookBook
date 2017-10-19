@@ -41,7 +41,7 @@ class RecipeCard extends Component {
                 <div className="footer">
                     <div>
                         {this.renderLike()}
-                        <Link to={`/recipes/${this.props.recipe.id}`} className="btn">See recipe</Link>
+                        <Link to={`/recipes/viewer/${this.props.recipe.id}`} className="btn">See recipe</Link>
                     </div>
                 </div>
             </div>
